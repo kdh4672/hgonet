@@ -8,13 +8,13 @@ GPU: [0]           # list of gpu ids
 DEBUG: 0            # turns on debugging mode
 VERBOSE: 0          # turns on verbose mode in the output console
 
-TRAIN_FLIST: /database/daehyeon/beach/train_rgb_image
-VAL_FLIST: /database/daehyeon/beach/test_rgb_image
-TEST_FLIST: /database/daehyeon/beach/test_rgb_image
+TRAIN_FLIST: #train_flist_path
+VAL_FLIST: #val_flist_path
+TEST_FLIST: #test_flist_path
 
-TRAIN_MASK_FLIST: /database/daehyeon/beach/train_rgb_image #same with Train_FLIST
-VAL_MASK_FLIST: /database/daehyeon/beach/test_rgb_image #same with VAL_FLIST
-TEST_MASK_FLIST: /database/daehyeon/beach/test_rgb_image #same with TEST_FLIST
+TRAIN_MASK_FLIST: #same with Train_FLIST
+VAL_MASK_FLIST: #same with VAL_FLIST
+TEST_MASK_FLIST: #same with TEST_FLIST
 
 LR: 0.0001                    # learning rate
 D2G_LR: 0.1                   # discriminator/generator learning rate ratio
