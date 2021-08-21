@@ -37,10 +37,10 @@ class Attention(nn.Module):
 
         self.attend = nn.Softmax(dim = -1)
         self.to_qkv = nn.Linear(dim, inner_dim * 3, bias = False)
-        ##kdkd
+        ##anonymous
         self.to_qk = nn.Linear(dim, inner_dim * 2, bias = False)
         self.to_v = nn.Linear(dim, inner_dim * 1, bias = False)
-        ##kdkd
+        ##anonymous
         self.to_out = nn.Sequential(
             nn.Linear(inner_dim, dim),
             nn.Dropout(dropout)
@@ -181,7 +181,7 @@ class ViT_Generator(nn.Module):
                 nn.Linear(dim, channels * patch_size_w * patch_size_h), ## 이거 고치는중
                 Rearrange('b w (p1 p2 c) -> b c p1 (w p2)', p1 = patch_size_h, p2 = patch_size_w), ## (1 , 14 ,16*224*3) --> (1, 3, 224, 14 * 16)
                 
-                ## kdkd 끝단에 Conv2d 추가
+                ## anonymous 끝단에 Conv2d 추가
                 nn.Conv2d(in_channels = 3,
                                       out_channels = 3,
                                       kernel_size = 3,
@@ -204,7 +204,7 @@ class ViT_Generator(nn.Module):
         # print(self.pos_embedding[:, :(n+2)].shape)
         x = torch.cat((cls_tokens, x), dim=1)
         pos_embedding = self.pos_embedding
-        x += self.pos_embedding##kdkd cls token 없애서 n+1 --> n 으로 바꿈
+        x += self.pos_embedding##anonymous cls token 없애서 n+1 --> n 으로 바꿈
         x = self.dropout(x)
 
         x = self.transformer(x)

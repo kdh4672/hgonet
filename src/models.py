@@ -35,7 +35,7 @@ class BaseModel(nn.Module):
                 data = torch.load(self.gen_weights_path)
             else:
                 data = torch.load(self.gen_weights_path, map_location=lambda storage, loc: storage)
-            ##kdkd## config.LOAD이면 state_dict뽑음
+            ##anonymous## config.LOAD이면 state_dict뽑음
             if self.config.LOAD ==True:
                 self.generator.load_state_dict(data['generator'])
             self.iteration = data['iteration']
@@ -79,7 +79,7 @@ class BaseModel(nn.Module):
             'generator': self.generator.state_dict()
         }, self.gen_weights_path)
 
-        ##kdkd-discriminator
+        ##anonymous-discriminator
         torch.save({
             'discriminator': self.discriminator.state_dict()
         }, self.dis_weights_path)
@@ -272,7 +272,7 @@ class InpaintingModel(BaseModel):
             generator = InpaintGenerator()
         if len(config.GPU) > 1:
             generator = nn.DataParallel(generator, config.GPU)
-        ##kdkd-discriminator
+        ##anonymous-discriminator
         discriminator = Discriminator(in_channels=3, use_sigmoid=config.GAN_LOSS != 'hinge')
         l1_loss = nn.L1Loss()
         perceptual_loss = PerceptualLoss()
@@ -291,7 +291,7 @@ class InpaintingModel(BaseModel):
             lr=float(config.LR),
             betas=(config.BETA1, config.BETA2)
         )
-        ##kdkd-discriminator
+        ##anonymous-discriminator
         self.dis_optimizer = optim.Adam(
             params=self.discriminator.parameters(),
             lr=float(config.LR) * float(config.D2G_LR),
@@ -303,37 +303,37 @@ class InpaintingModel(BaseModel):
         # print(images.shape)
         # zero optimizers
         self.gen_optimizer.zero_grad()
-        ##kdkd-discriminator
+        ##anonymous-discriminator
         self.dis_optimizer.zero_grad()
 
 
         # process outputs
         outputs = self(images, edges, masks)
-        ##kdkd-discriminator
+        ##anonymous-discriminator
         # output_total = 
         gen_loss = 0
         dis_loss = 0
 
         # discriminator loss
-        ##kdkd-discriminator
+        ##anonymous-discriminator
         width = images.shape[3]
         
 
-        #kdkd-part-discirminator (나중에 원복해야함) 생성된 이미지중 맨왼쪽만
+        #anonymous-part-discirminator (나중에 원복해야함) 생성된 이미지중 맨왼쪽만
         # outputs_final = outputs[:,:,:,:self.config.GEN_PIXEL_SIZE]
         # dis_input_real = images[:,:,:,:self.config.GEN_PIXEL_SIZE]
-        #kdkd-part-discirminator (나중에 원복해야함)
+        #anonymous-part-discirminator (나중에 원복해야함)
 
-        #kdkd-bigger_part-discirminator (나중에 원복해야함) 진짜생성된 이미지만
+        #anonymous-bigger_part-discirminator (나중에 원복해야함) 진짜생성된 이미지만
         # outputs_final = outputs
         # dis_input_real = torch.cat((images[:,:,:,:self.config.GEN_PIXEL_SIZE],images[:,:,:,width//2:]),dim=3)
-        #kdkd-biiger_part-discirminator (나중에 원복해야함)
+        #anonymous-biiger_part-discirminator (나중에 원복해야함)
 
-        ##kdkd-전체 full size 이미지-discriminator
+        ##anonymous-전체 full size 이미지-discriminator
         outputs_final = torch.cat((outputs[:,:,:,:self.config.GEN_PIXEL_SIZE],images[:,:,:,self.config.GEN_PIXEL_SIZE:width//4],\
             outputs[:,:,:,self.config.GEN_PIXEL_SIZE:-self.config.GEN_PIXEL_SIZE],images[:,:,:,3*width//4:-self.config.GEN_PIXEL_SIZE],outputs[:,:,:,-self.config.GEN_PIXEL_SIZE:]),dim=3)
         dis_input_real = images
-        ##kdkd-전체 full size 이미지-discriminator
+        ##anonymous-전체 full size 이미지-discriminator
         # outputs_final = outputs
         dis_input_fake = outputs_final.detach() ##현재 3 128 160이므로 수정해야함
         dis_real, _ = self.discriminator(dis_input_real)                    # in: [rgb(3)]
@@ -344,7 +344,7 @@ class InpaintingModel(BaseModel):
 
 
         # generator adversarial loss
-        ##kdkd-part-discriminator
+        ##anonymous-part-discriminator
         gen_input_fake = outputs_final
         # gen_input_fake = outputs
         gen_fake, _ = self.discriminator(gen_input_fake)                    # in: [rgb(3)]

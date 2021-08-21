@@ -382,7 +382,7 @@ class EdgeConnect():
                 outputs = self.inpaint_model(images, edges, masks)
                 outputs_merged = (outputs * masks) + (images * (1 - masks))
 
-            outputs_merged = torch.clamp(outputs_merged, min=0, max=1)   ## kdkd clipping
+            outputs_merged = torch.clamp(outputs_merged, min=0, max=1)   ## anonymous clipping
             
             output = self.postprocess(outputs_merged)[0]
             # output = self.postprocess(outputs_merged)[0]
@@ -433,7 +433,7 @@ class EdgeConnect():
             outputs_merged = torch.cat((outputs[:,:,:,:self.config.GEN_PIXEL_SIZE],images[:,:,:,width//4:3*width//4],outputs[:,:,:,-self.config.GEN_PIXEL_SIZE:]),dim=3)
             visual_image = torch.cat((outputs[:,:,:,:self.config.GEN_PIXEL_SIZE],images[:,:,:,self.config.GEN_PIXEL_SIZE:-self.config.GEN_PIXEL_SIZE],outputs[:,:,:,-self.config.GEN_PIXEL_SIZE:]),dim=3)
             # visual_image = outputs
-            visual_image = torch.clamp(visual_image, min=0, max=1)   ## kdkd clipping
+            visual_image = torch.clamp(visual_image, min=0, max=1)   ## anonymous clipping
             black_line = torch.zeros_like(visual_image)[:,:,:,:4]
         # inpaint with edge model / joint model
         else:

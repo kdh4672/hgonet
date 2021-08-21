@@ -55,7 +55,7 @@ class Attention(nn.Module):
         # print('softmax:',attn[0,0,0,:])
         # print('softmax_sum:',torch.sum(attn[0,0,0,:]))
 
-        # kdkd temperature 추가
+
         # if self.config.TEMP:
         #     # print('self.config.TEMP:',self.config.TEMP)
         #     temperature = self.config.TEMP
@@ -63,7 +63,7 @@ class Attention(nn.Module):
         #     attn = attn / attn.sum(dim=-1, keepdim=True)
             # print('temp_softmax:',attn[0,0,0,:])
             # print('temp_softmax_sum:',torch.sum(attn[0,0,0,:]))
-        # kdkd temperature 추가
+
         out = einsum('b h i j, b h j d -> b h i d', attn, v)
         out = rearrange(out, 'b h n d -> b n (h d)')
         return self.to_out(out)
@@ -173,7 +173,7 @@ class ViT_Generator(nn.Module):
         x = torch.cat((cls_tokens_l, x, cls_tokens_r), dim=1) ## 8 + 98 + 8 = 114 ## 8 pixel 일 때, 4 + 98 + 4
         ##cls_token randn으로 생성할때 (original)
 
-        x += self.pos_embedding ##kdkd cls token n + 1 --> n + 2m
+        x += self.pos_embedding ##anonymous cls token n + 1 --> n + 2m
         x = self.dropout(x)
 
         x = self.transformer(x)
@@ -270,13 +270,13 @@ class PATCH_Attention(nn.Module):
                 zeros[b][p][max_index] = 1
         attn = zeros
         
-        # kdkd temperature 추가
+
         if self.config.TEMP:
             print('self.config.TEMP:',self.config.TEMP)
             temperature = self.config.TEMP
             attn = attn**(1/temperature)
             attn = attn / attn.sum(dim=-1, keepdim=True)
-        # kdkd temperature 추가
+ 
 
         out = einsum('b i j, b j d -> b i d', attn, c)
         out = torch.cat((out[:,:self.side,:],c,out[:,-self.side:,:]),dim=1)
