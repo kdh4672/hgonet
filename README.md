@@ -2,3 +2,5 @@
 ```
 python main.py --path ./checkpoints/vit_side
 ```
+
+pre-trained model file is at Release section
