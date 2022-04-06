@@ -6,7 +6,7 @@ pip install -r requirements.txt
 
 - pre-trained model file
   - https://github.com/kdh4672/hgonet/releases
-  - save Inpainting_dis.pth, Inpainting_gen.pth to ```"./checkpoints/vit_hint/.```
+  - save Inpainting_dis.pth, Inpainting_gen.pth to ```"./checkpoints/vit_side/.```
 
 ```
 python main.py --path ./checkpoints/vit_side
