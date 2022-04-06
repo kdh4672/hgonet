@@ -1,10 +1,17 @@
 ## Image-Adaptive Hint Generation via Vision Transformer for Outpainting (WACV 2022 Poster presentation)
 ```
-python main.py --path ./checkpoints/vit_side
+pip install -r requirements.txt
 ```
+
 
 - pre-trained model file
   - https://github.com/kdh4672/hgonet/releases
+  - save Inpainting_dis.pth, Inpainting_gen.pth to ```"./checkpoints/vit_hint/.```
+
+```
+python main.py --path ./checkpoints/vit_side
+```
+
 
 - paper file
   - [Image-Adaptive Hint Generation via Vision Transformer for Outpainting.pdf](https://github.com/kdh4672/hgonet/files/7719685/1196.pdf)
