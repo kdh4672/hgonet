@@ -3,7 +3,8 @@
 python main.py --path ./checkpoints/vit_side
 ```
 
-- pre-trained model file is at Release section
+- pre-trained model file
+  - https://github.com/kdh4672/hgonet/releases
 
 - paper file
   - [Image-Adaptive Hint Generation via Vision Transformer for Outpainting.pdf](https://github.com/kdh4672/hgonet/files/7719685/1196.pdf)
